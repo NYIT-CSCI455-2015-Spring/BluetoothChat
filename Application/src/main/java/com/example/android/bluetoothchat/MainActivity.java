@@ -35,6 +35,8 @@ import com.example.android.common.logger.MessageOnlyLogFilter;
  * For devices with displays with a width of 720dp or greater, the sample log is always visible,
  * on other devices it's visibility is controlled by an item on the Action Bar.
  */
+
+//to be modified for Senior Project
 public class MainActivity extends SampleActivityBase {
 
     public static final String TAG = "MainActivity";
