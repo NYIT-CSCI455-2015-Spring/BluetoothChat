@@ -39,6 +39,7 @@ import com.example.android.common.logger.MessageOnlyLogFilter;
 //to be modified for Senior Project
 //another modification from another PC after checking out from GitHub in Android Studio
     //one more test
+    //changes made by Asvin and Anvesh successfully pulled to Nick's PC!
 public class MainActivity extends SampleActivityBase {
 
     public static final String TAG = "MainActivity";
