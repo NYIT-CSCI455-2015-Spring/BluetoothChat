@@ -255,17 +255,19 @@ containing a value of this type.
         public static final int cardview_shadow_start_color=0x7f040003;
     }
     public static final class dimen {
-        public static final int cardview_compat_inset_shadow=0x7f050000;
-        public static final int cardview_default_elevation=0x7f050001;
-        public static final int cardview_default_radius=0x7f050002;
-        public static final int default_gap=0x7f050003;
-        public static final int horizontal_page_margin=0x7f050004;
-        public static final int margin_huge=0x7f050005;
-        public static final int margin_large=0x7f050006;
-        public static final int margin_medium=0x7f050007;
-        public static final int margin_small=0x7f050008;
-        public static final int margin_tiny=0x7f050009;
-        public static final int vertical_page_margin=0x7f05000a;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
+        public static final int cardview_compat_inset_shadow=0x7f050002;
+        public static final int cardview_default_elevation=0x7f050003;
+        public static final int cardview_default_radius=0x7f050004;
+        public static final int default_gap=0x7f050005;
+        public static final int horizontal_page_margin=0x7f050006;
+        public static final int margin_huge=0x7f050007;
+        public static final int margin_large=0x7f050008;
+        public static final int margin_medium=0x7f050009;
+        public static final int margin_small=0x7f05000a;
+        public static final int margin_tiny=0x7f05000b;
+        public static final int vertical_page_margin=0x7f05000c;
     }
     public static final class drawable {
         public static final int ic_action_device_access_bluetooth_searching=0x7f020000;
@@ -273,6 +275,7 @@ containing a value of this type.
         public static final int tile=0x7f020002;
     }
     public static final class id {
+        public static final int action_settings=0x7f090024;
         public static final int alignBounds=0x7f090002;
         public static final int alignMargins=0x7f090003;
         public static final int bottom=0x7f090004;
@@ -289,12 +292,13 @@ containing a value of this type.
         public static final int fill=0x7f09000b;
         public static final int fill_horizontal=0x7f09000c;
         public static final int fill_vertical=0x7f09000d;
+        public static final int help=0x7f090022;
         public static final int horizontal=0x7f090000;
         public static final int in=0x7f09001b;
         public static final int insecure_connect_scan=0x7f09001f;
         public static final int left=0x7f09000e;
         public static final int log_fragment=0x7f090019;
-        public static final int menu_toggle_log=0x7f090021;
+        public static final int menu_toggle_log=0x7f090023;
         public static final int new_devices=0x7f090015;
         public static final int paired_devices=0x7f090013;
         public static final int right=0x7f09000f;
@@ -302,6 +306,7 @@ containing a value of this type.
         public static final int sample_main_layout=0x7f090017;
         public static final int sample_output=0x7f090018;
         public static final int secure_connect_scan=0x7f09001e;
+        public static final int settings=0x7f090021;
         public static final int start=0x7f090010;
         public static final int title_new_devices=0x7f090014;
         public static final int title_paired_devices=0x7f090012;
@@ -310,36 +315,43 @@ containing a value of this type.
     }
     public static final class layout {
         public static final int activity_device_list=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int device_name=0x7f030002;
-        public static final int fragment_bluetooth_chat=0x7f030003;
-        public static final int message=0x7f030004;
+        public static final int activity_dummy=0x7f030001;
+        public static final int activity_main=0x7f030002;
+        public static final int device_name=0x7f030003;
+        public static final int fragment_bluetooth_chat=0x7f030004;
+        public static final int message=0x7f030005;
     }
     public static final class menu {
         public static final int bluetooth_chat=0x7f080000;
         public static final int main=0x7f080001;
+        public static final int menu_dummy=0x7f080002;
     }
     public static final class string {
-        public static final int app_name=0x7f060000;
-        public static final int bt_not_enabled_leaving=0x7f060001;
-        public static final int button_scan=0x7f060002;
-        public static final int discoverable=0x7f060003;
-        public static final int insecure_connect=0x7f060004;
-        public static final int intro_message=0x7f060005;
-        public static final int none_found=0x7f060006;
-        public static final int none_paired=0x7f060007;
-        public static final int not_connected=0x7f060008;
-        public static final int sample_hide_log=0x7f060009;
-        public static final int sample_show_log=0x7f06000a;
-        public static final int scanning=0x7f06000b;
-        public static final int secure_connect=0x7f06000c;
-        public static final int select_device=0x7f06000d;
-        public static final int send=0x7f06000e;
-        public static final int title_connected_to=0x7f06000f;
-        public static final int title_connecting=0x7f060010;
-        public static final int title_not_connected=0x7f060011;
-        public static final int title_other_devices=0x7f060012;
-        public static final int title_paired_devices=0x7f060013;
+        public static final int action_settings=0x7f060000;
+        public static final int app_name=0x7f060001;
+        public static final int bt_not_enabled_leaving=0x7f060002;
+        public static final int button_scan=0x7f060003;
+        public static final int discoverable=0x7f060004;
+        public static final int hello_world=0x7f060005;
+        public static final int help=0x7f060006;
+        public static final int insecure_connect=0x7f060007;
+        public static final int intro_message=0x7f060008;
+        public static final int none_found=0x7f060009;
+        public static final int none_paired=0x7f06000a;
+        public static final int not_connected=0x7f06000b;
+        public static final int sample_hide_log=0x7f06000c;
+        public static final int sample_show_log=0x7f06000d;
+        public static final int scanning=0x7f06000e;
+        public static final int secure_connect=0x7f06000f;
+        public static final int select_device=0x7f060010;
+        public static final int send=0x7f060011;
+        public static final int settings=0x7f060012;
+        public static final int title_activity_dummy=0x7f060013;
+        public static final int title_connected_to=0x7f060014;
+        public static final int title_connecting=0x7f060015;
+        public static final int title_not_connected=0x7f060016;
+        public static final int title_other_devices=0x7f060017;
+        public static final int title_paired_devices=0x7f060018;
     }
     public static final class style {
         public static final int AppTheme=0x7f070000;
