@@ -42,5 +42,16 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_help">HelpActivity</string>
+    <string name="userguide_button">User Guide</string>
+    <string name="feedback_button">Feedback</string>
+    <string name="faqs_button">FAQs</string>
+    <string name="welcome_message">Welcome to our Help Page</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
+    <string name="to">To:</string>
+    <string name="sendto">blchatadmin@gmail.com</string>
+    <string name="subject">Subject</string>
+    <string name="message">Message:</string>
+    <string name="sendbutton">Send</string>
 
 </resources>
