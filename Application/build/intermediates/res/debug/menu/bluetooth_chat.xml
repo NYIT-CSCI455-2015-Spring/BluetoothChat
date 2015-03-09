@@ -31,5 +31,15 @@
         android:showAsAction="never"
         android:title="@string/discoverable"/>
 
+    <item
+        android:id="@+id/settings"
+        android:showAsAction="never"
+        android:title="@string/settings" />
+
+    <item
+        android:id="@+id/help"
+        android:showAsAction="never"
+        android:title="@string/help" />
+
 </menu>
-<!-- From: file:/C:/Users/Nick/AndroidStudioProjects/BluetoothChat/Application/src/main/res/menu/bluetooth_chat.xml -->
+<!-- From: file:/Users/Asvin/AndroidStudioProjects/BluetoothChat/Application/src/main/res/menu/bluetooth_chat.xml -->

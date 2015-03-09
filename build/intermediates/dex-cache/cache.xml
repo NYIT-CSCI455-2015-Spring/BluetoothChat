@@ -2,39 +2,39 @@
 <items version="2" >
 
     <item
-        jar="/Users/Asvin/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/21.0.2/classes.jar"
+        jar="/Users/AnveshP/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/21.0.2/classes.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="9742ced04aafd9ac97dd2c66c1aa0e32d2ae7e54">
-        <dex dex="/Users/Asvin/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/pre-dexed/debug/classes-d1106b37bbc924c05b1f22e66bb481fc4cd1e659.jar" />
+        <dex dex="/Users/AnveshP/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/pre-dexed/debug/classes-56a661b23619ba9d2527dc4cdd9787b836a9ccd7.jar" />
     </item>
     <item
-        jar="/Users/Asvin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.2/support-annotations-21.0.2.jar"
+        jar="/Users/AnveshP/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.2/support-annotations-21.0.2.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
-        <dex dex="/Users/Asvin/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/pre-dexed/debug/support-annotations-21.0.2-3d0527d8469eaa11fcc51a57ce22dd10854e8241.jar" />
+        <dex dex="/Users/AnveshP/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/pre-dexed/debug/support-annotations-21.0.2-b73dcebb5eb5864d9d7e1bd883c44ae9f05d46b7.jar" />
     </item>
     <item
-        jar="/Users/Asvin/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
+        jar="/Users/AnveshP/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
-        <dex dex="/Users/Asvin/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/pre-dexed/debug/classes-77d935a47dce14bb4de35138d4ac46ceb49798ea.jar" />
+        <dex dex="/Users/AnveshP/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/pre-dexed/debug/classes-ced017fc5ea11e388e72c642001d1164e3c25a6b.jar" />
     </item>
     <item
-        jar="/Users/Asvin/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.2/classes.jar"
+        jar="/Users/AnveshP/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.2/classes.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="b017100da14f9c158c9f5f2f508333c224b24a7c">
-        <dex dex="/Users/Asvin/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/pre-dexed/debug/classes-b4ef0e29102e2642c3fdd7c4de0180122d2e4e5b.jar" />
+        <dex dex="/Users/AnveshP/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/pre-dexed/debug/classes-8b75ab77ccf1cef118673575a6592cebee4223e0.jar" />
     </item>
     <item
-        jar="/Users/Asvin/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar"
+        jar="/Users/AnveshP/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
-        <dex dex="/Users/Asvin/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/pre-dexed/debug/internal_impl-21.0.2-da08581be179bb6563b18556dc036930dd437b90.jar" />
+        <dex dex="/Users/AnveshP/AndroidStudioProjects/BluetoothChat/Application/build/intermediates/pre-dexed/debug/internal_impl-21.0.2-cae05260aab8e438fd7c278d006815dbcff9b4b2.jar" />
     </item>
 
 </items>

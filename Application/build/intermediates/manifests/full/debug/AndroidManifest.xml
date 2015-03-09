@@ -20,7 +20,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
     <!-- Min/target SDK versions (<uses-sdk>) managed by build.gradle -->
@@ -48,6 +48,27 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/select_device"
             android:theme="@android:style/Theme.Holo.Dialog" />
+        <activity
+            android:name="com.example.android.bluetoothchat.DummyActivity"
+            android:label="@string/title_activity_dummy" />
+        <activity
+            android:name="com.example.android.bluetoothchat.HelpActivity"
+            android:label="@string/title_activity_help"
+            android:parentActivityName="com.example.android.bluetoothchat.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.bluetoothchat.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.android.bluetoothchat.FeedbackActivity"
+            android:label="@string/title_activity_feedback"
+            android:parentActivityName="com.example.android.bluetoothchat.HelpActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.bluetoothchat.HelpActivity" />
+        </activity>
+        <activity android:name="com.example.android.bluetoothchat.SettingsPage" />
+        <activity android:name="com.example.android.bluetoothchat.CustomizeAppearancePage" />
     </application>
 
 </manifest>

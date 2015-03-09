@@ -45,20 +45,23 @@
             android:label="@string/select_device"
             android:theme="@android:style/Theme.Holo.Dialog" />
         <activity
-            android:name=".SettingsPage"
-            android:label="@string/title_activity_settings_page"
+            android:name=".DummyActivity"
+            android:label="@string/title_activity_dummy" />
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.bluetoothchat.MainActivity" />
         </activity>
         <activity
-            android:name=".CustomizeAppearancePage"
-            android:label="@string/title_activity_customize_appearance_page"
-            android:parentActivityName=".SettingsPage" >
+            android:name=".FeedbackActivity"
+            android:label="@string/title_activity_feedback"
+            android:parentActivityName=".HelpActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.bluetoothchat.SettingsPage" />
+                android:value="com.example.android.bluetoothchat.HelpActivity" />
         </activity>
     </application>
 
