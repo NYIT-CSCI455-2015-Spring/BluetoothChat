@@ -38,4 +38,22 @@
     <string name="insecure_connect">Connect a device - Insecure</string>
     <string name="discoverable">Make discoverable</string>
 
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings_page">SettingsPage</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_customize_appearance_page">CustomizeAppearancePage</string>
+    <string name="prompt">Pick your theme</string>
+    <string name="question">list_of_questions</string>
+    <string-array name="themes">
+        <item>Theme1</item>
+        <item>Theme2</item>
+        <item>Theme3</item>
+        <item>Theme4</item>
+        <item>Theme5</item>
+        <item>Theme7</item>
+        <item>Theme8</item>
+        <item>Theme9</item>
+        <item>Theme10</item>
+    </string-array>
 </resources>
