@@ -70,7 +70,7 @@ public class MainActivity extends SampleActivityBase {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem logToggle = menu.findItem(R.id.menu_toggle_log);
-        MenuItem settings = menu.findItem(R.id.settings).setIntent(new Intent(this, DummyActivity.class));
+        MenuItem settings = menu.findItem(R.id.settings).setIntent(new Intent(this, SettingsPage.class));
         MenuItem help = menu.findItem(R.id.help).setIntent(new Intent(this, HelpActivity.class));
         logToggle.setVisible(findViewById(R.id.sample_output) instanceof ViewAnimator);
         logToggle.setTitle(mLogShown ? R.string.sample_hide_log : R.string.sample_show_log);
