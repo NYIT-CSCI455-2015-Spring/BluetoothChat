@@ -3,15 +3,25 @@ package com.example.android.bluetoothchat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class CustomizeAppearancePage extends Activity {
+
+public class SettingsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customize_appearance_page);
-        Intent intent = getIntent();
+        setContentView(R.layout.activity_settings_page);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_settings_page, menu);
+        return true;
     }
 
     @Override
@@ -27,5 +37,10 @@ public class CustomizeAppearancePage extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openCustomizeAppearancePage(View view){
+        Intent intent = new Intent(this, ThemeActivity.class);
+        startActivity(intent);
     }
 }
