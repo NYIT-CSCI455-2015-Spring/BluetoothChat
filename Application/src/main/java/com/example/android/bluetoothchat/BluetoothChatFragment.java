@@ -114,7 +114,10 @@ public class BluetoothChatFragment extends Fragment {
                 // Otherwise, setup the chat session
             } else if (mChatService == null) {
                 setupChat();
+                Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
+                startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
             }
+
         }
         catch (NullPointerException e){
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
