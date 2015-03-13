@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class SettingsPage extends Activity {
+public class SettingsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class SettingsPage extends Activity {
     }
 
     public void openCustomizeAppearancePage(View view){
-        Intent intent = new Intent(this, CustomizeAppearancePage.class);
+        Intent intent = new Intent(this, ThemeActivity.class);
         startActivity(intent);
     }
 }

@@ -54,13 +54,16 @@
     <string name="message">Message:</string>
     <string name="sendbutton">Send</string>
 
-    <string name="action_settings">Settings</string>
     <string name="title_activity_settings_page">SettingsPage</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_customize_appearance_page">CustomizeAppearancePage</string>
     <string name="prompt">Pick your theme</string>
     <string name="question">list_of_questions</string>
+    <string name="theme_options">Theme Options</string>
+    <string name="settings_page">Settings Page</string>
+    <string name="customize_appearance">Customize Appearance</string>
+    <string name="encryption">Encryption</string>
+    <string name="blocked_users">Blocked Users</string>
     <string-array name="themes">
         <item>Theme1</item>
         <item>Theme2</item>
@@ -72,4 +75,7 @@
         <item>Theme9</item>
         <item>Theme10</item>
     </string-array>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
