@@ -63,6 +63,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.bluetoothchat.HelpActivity" />
         </activity>
+        <activity
+            android:name=".SettingsPage"
+            android:label="@string/settings_page"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.bluetoothchat.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CustomizeAppearancePage"
+            android:label="@string/customize_appearance"
+            android:parentActivityName=".SettingsPage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.bluetoothchat.CustomizeAppearancePage" />
+        </activity>
     </application>
 
 </manifest>
