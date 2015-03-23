@@ -121,7 +121,7 @@ public class BluetoothChatFragment extends Fragment {
         }
         catch (NullPointerException e){
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getActivity(), DummyActivity.class));
+            startActivity(new Intent(getActivity(), HelpActivity.class));
         }
 
     }
@@ -316,6 +316,8 @@ public class BluetoothChatFragment extends Fragment {
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
+                    //Notification implementation here
+                    //How to trigger notification from a Fragment?
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
