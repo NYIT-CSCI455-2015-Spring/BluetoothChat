@@ -326,8 +326,6 @@ public class BluetoothChatFragment extends Fragment {
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
-                    //Notification implementation here
-                    //How to trigger notification from a Fragment?
                     NotificationCompat.Builder mBuilder =
                             new NotificationCompat.Builder(getActivity())
                                     .setSmallIcon(R.drawable.ic_launcher)
@@ -355,6 +353,8 @@ public class BluetoothChatFragment extends Fragment {
                     // mId allows you to update the notification later on.
                     int mId = 0;
                     mNotificationManager.notify(mId+1, mBuilder.build());
+
+                    //After notification we should write the message to a database to be viewed in chat history.
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
