@@ -331,8 +331,8 @@ public class BluetoothChatFragment extends Fragment {
                     NotificationCompat.Builder mBuilder =
                             new NotificationCompat.Builder(getActivity())
                                     .setSmallIcon(R.drawable.ic_launcher)
-                                    .setContentTitle("My notification")
-                                    .setContentText("Hello World!");
+                                    .setContentTitle("New Bluetooth Message!")
+                                    .setContentText(readMessage);
                     // Creates an explicit intent for an Activity in your app
                     Intent resultIntent = new Intent(getActivity(), MainActivity.class);
 
