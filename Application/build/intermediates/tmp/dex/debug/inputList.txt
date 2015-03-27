@@ -1,6 +1,6 @@
-C:\Users\Nick\AndroidStudioProjects\BluetoothChat\Application\build\intermediates\classes\debug
-C:\Users\Nick\AndroidStudioProjects\BluetoothChat\Application\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-98d611b2226c8cb972255b6ac146a72ff7b55688.jar
-C:\Users\Nick\AndroidStudioProjects\BluetoothChat\Application\build\intermediates\pre-dexed\debug\classes-4164574d1a9290fc7da5780ea3645f955ac48235.jar
-C:\Users\Nick\AndroidStudioProjects\BluetoothChat\Application\build\intermediates\pre-dexed\debug\classes-ecc10090a4211a2d6bc368596728737c04b54090.jar
-C:\Users\Nick\AndroidStudioProjects\BluetoothChat\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-377775c09846091637a8ea62d40c3b327dc1d37e.jar
-C:\Users\Nick\AndroidStudioProjects\BluetoothChat\Application\build\intermediates\pre-dexed\debug\classes-dde4b9bf529148fd46b616eb7c415ea6ef7327d2.jar
+C:\Users\Nick\Documents\AndroidStudio\BluetoothChat\Application\build\intermediates\classes\debug
+C:\Users\Nick\Documents\AndroidStudio\BluetoothChat\Application\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-98d611b2226c8cb972255b6ac146a72ff7b55688.jar
+C:\Users\Nick\Documents\AndroidStudio\BluetoothChat\Application\build\intermediates\pre-dexed\debug\classes-7eb2a8620527922d01adbddefa335f4fdc4dc2ed.jar
+C:\Users\Nick\Documents\AndroidStudio\BluetoothChat\Application\build\intermediates\pre-dexed\debug\classes-12555e5043e611cd74c57c2aec6c377b4a91f925.jar
+C:\Users\Nick\Documents\AndroidStudio\BluetoothChat\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-d3be62a1192cc22c6406ae776c3488066fcef4b9.jar
+C:\Users\Nick\Documents\AndroidStudio\BluetoothChat\Application\build\intermediates\pre-dexed\debug\classes-9d7252328ba95477e4f5418a6ae1ec0986e6d96f.jar

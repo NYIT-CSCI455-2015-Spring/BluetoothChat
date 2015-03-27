@@ -88,8 +88,8 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
         MenuItem logToggle = menu.findItem(R.id.menu_toggle_log);
         //MenuItem settings = menu.findItem(R.id.settings).setIntent(new Intent(this, SettingsActivity.class));
         //MenuItem help = menu.findItem(R.id.help).setIntent(new Intent(this, HelpActivity.class));
-        logToggle.setVisible(findViewById(R.id.sample_output) instanceof ViewAnimator);
-        logToggle.setTitle(mLogShown ? R.string.sample_hide_log : R.string.sample_show_log);
+        /*logToggle.setVisible(findViewById(R.id.sample_output) instanceof ViewAnimator);
+        logToggle.setTitle(mLogShown ? R.string.sample_hide_log : R.string.sample_show_log);*/
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -99,13 +99,13 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
         switch(item.getItemId()) {
             case R.id.menu_toggle_log:
                 mLogShown = !mLogShown;
-                ViewAnimator output = (ViewAnimator) findViewById(R.id.sample_output);
-                if (mLogShown) {
+                //ViewAnimator output = (ViewAnimator) findViewById(R.id.sample_output);
+                /*if (mLogShown) {
                     output.setDisplayedChild(1);
                 } else {
                     output.setDisplayedChild(0);
                 }
-                supportInvalidateOptionsMenu();
+                supportInvalidateOptionsMenu();*/
                 return true;
             case R.id.help:
                 startActivity(item.getIntent());

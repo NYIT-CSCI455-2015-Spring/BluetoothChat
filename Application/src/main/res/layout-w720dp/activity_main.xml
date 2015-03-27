@@ -20,7 +20,7 @@
       android:layout_height="match_parent"
       android:id="@+id/sample_main_layout">
 
-    <LinearLayout
+    <!--<LinearLayout
           android:id="@+id/sample_output"
           android:layout_width="0px"
           android:layout_height="match_parent"
@@ -55,7 +55,7 @@
               android:layout_height="0px"
               android:layout_weight="1" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <View
           android:layout_width="1dp"
