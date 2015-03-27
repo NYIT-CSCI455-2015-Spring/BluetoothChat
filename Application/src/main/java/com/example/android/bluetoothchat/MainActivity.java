@@ -16,11 +16,14 @@
 
 package com.example.android.bluetoothchat;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import android.widget.ViewAnimator;
 
 import com.example.android.common.activities.SampleActivityBase;
@@ -41,10 +44,14 @@ import com.example.android.common.logger.MessageOnlyLogFilter;
 //another modification from another PC after checking out from GitHub in Android Studio
     //one more test
     //changes made by Asvin and Anvesh successfully pulled to Nick's PC!
-public class MainActivity extends SampleActivityBase {
+public class MainActivity extends SampleActivityBase implements DummyFragment.OnFragmentInteractionListener{
 
     public static final String TAG = "MainActivity";
-
+    /**
+     * Local Bluetooth adapter
+     */
+    private BluetoothAdapter mBluetoothAdapter = null;
+    
     // Whether the Log Fragment is currently shown
     private boolean mLogShown;
 
@@ -53,10 +60,19 @@ public class MainActivity extends SampleActivityBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
+        try{
+            if (savedInstanceState == null) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                BluetoothChatFragment btcfragment = new BluetoothChatFragment();
+                transaction.replace(R.id.sample_content_fragment, btcfragment);
+                transaction.commit();
+            }
+        }
+        catch (NullPointerException e){
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            BluetoothChatFragment fragment = new BluetoothChatFragment();
-            transaction.replace(R.id.sample_content_fragment, fragment);
+            DummyFragment dfragment = new DummyFragment();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            transaction.replace(R.id.sample_content_fragment, dfragment);
             transaction.commit();
         }
     }
@@ -70,8 +86,8 @@ public class MainActivity extends SampleActivityBase {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem logToggle = menu.findItem(R.id.menu_toggle_log);
-        MenuItem settings = menu.findItem(R.id.settings).setIntent(new Intent(this, SettingsActivity.class));
-        MenuItem help = menu.findItem(R.id.help).setIntent(new Intent(this, HelpActivity.class));
+        //MenuItem settings = menu.findItem(R.id.settings).setIntent(new Intent(this, SettingsActivity.class));
+        //MenuItem help = menu.findItem(R.id.help).setIntent(new Intent(this, HelpActivity.class));
         logToggle.setVisible(findViewById(R.id.sample_output) instanceof ViewAnimator);
         logToggle.setTitle(mLogShown ? R.string.sample_hide_log : R.string.sample_show_log);
 
@@ -111,11 +127,15 @@ public class MainActivity extends SampleActivityBase {
         MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
         logWrapper.setNext(msgFilter);
 
-        // On screen logging via a fragment with a TextView.
+        /*// On screen logging via a fragment with a TextView.
         LogFragment logFragment = (LogFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.log_fragment);
-        msgFilter.setNext(logFragment.getLogView());
+        msgFilter.setNext(logFragment.getLogView());*/
 
         Log.i(TAG, "Ready");
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
     }
 }

@@ -20,7 +20,7 @@
       android:layout_height="match_parent"
       android:id="@+id/sample_main_layout">
 
-    <ViewAnimator
+    <!--<ViewAnimator
           android:id="@+id/sample_output"
           android:layout_width="match_parent"
           android:layout_height="0px"
@@ -48,7 +48,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent" />
 
-    </ViewAnimator>
+    </ViewAnimator>-->
 
     <View
           android:layout_width="match_parent"

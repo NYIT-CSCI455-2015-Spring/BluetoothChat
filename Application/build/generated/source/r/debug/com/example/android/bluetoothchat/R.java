@@ -309,16 +309,16 @@ containing a value of this type.
         public static final int in=0x7f0a002d;
         public static final int insecure_connect_scan=0x7f0a0031;
         public static final int left=0x7f0a000e;
-        public static final int log_fragment=0x7f0a0029;
+        public static final int log_fragment=0x7f0a002a;
         public static final int menu_toggle_log=0x7f0a0035;
         public static final int message=0x7f0a001f;
         public static final int messageline=0x7f0a0020;
         public static final int new_devices=0x7f0a0019;
         public static final int paired_devices=0x7f0a0017;
         public static final int right=0x7f0a000f;
-        public static final int sample_content_fragment=0x7f0a002a;
+        public static final int sample_content_fragment=0x7f0a0028;
         public static final int sample_main_layout=0x7f0a0027;
-        public static final int sample_output=0x7f0a0028;
+        public static final int sample_output=0x7f0a0029;
         public static final int secure_connect_scan=0x7f0a0030;
         public static final int sendto=0x7f0a0021;
         public static final int settings=0x7f0a0033;
@@ -344,7 +344,8 @@ containing a value of this type.
         public static final int activity_settings_page=0x7f030006;
         public static final int device_name=0x7f030007;
         public static final int fragment_bluetooth_chat=0x7f030008;
-        public static final int message=0x7f030009;
+        public static final int fragment_dummy=0x7f030009;
+        public static final int message=0x7f03000a;
     }
     public static final class menu {
         public static final int bluetooth_chat=0x7f090000;
