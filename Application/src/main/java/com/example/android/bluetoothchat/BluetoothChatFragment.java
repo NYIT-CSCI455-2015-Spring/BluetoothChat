@@ -444,6 +444,10 @@ public class BluetoothChatFragment extends Fragment {
                 ensureDiscoverable();
                 return true;
             }
+            case R.id.help:
+                startActivity(item.getIntent());
+            case R.id.settings:
+                startActivity(item.getIntent());
         }
         return false;
     }

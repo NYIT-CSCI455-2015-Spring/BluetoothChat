@@ -85,9 +85,9 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem logToggle = menu.findItem(R.id.menu_toggle_log);
-        //MenuItem settings = menu.findItem(R.id.settings).setIntent(new Intent(this, SettingsActivity.class));
-        //MenuItem help = menu.findItem(R.id.help).setIntent(new Intent(this, HelpActivity.class));
+        //MenuItem logToggle = menu.findItem(R.id.menu_toggle_log);
+        MenuItem settings = menu.findItem(R.id.settings).setIntent(new Intent(this, SettingsActivity.class));
+        MenuItem help = menu.findItem(R.id.help).setIntent(new Intent(this, HelpActivity.class));
         /*logToggle.setVisible(findViewById(R.id.sample_output) instanceof ViewAnimator);
         logToggle.setTitle(mLogShown ? R.string.sample_hide_log : R.string.sample_show_log);*/
 
@@ -98,7 +98,7 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_toggle_log:
-                mLogShown = !mLogShown;
+                //mLogShown = !mLogShown;
                 //ViewAnimator output = (ViewAnimator) findViewById(R.id.sample_output);
                 /*if (mLogShown) {
                     output.setDisplayedChild(1);
@@ -106,7 +106,7 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
                     output.setDisplayedChild(0);
                 }
                 supportInvalidateOptionsMenu();*/
-                return true;
+                //return true;
             case R.id.help:
                 startActivity(item.getIntent());
             case R.id.settings:
