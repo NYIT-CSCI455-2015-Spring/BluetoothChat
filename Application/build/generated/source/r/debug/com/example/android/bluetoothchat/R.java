@@ -280,7 +280,7 @@ containing a value of this type.
     public static final class id {
         public static final int EditSendTo=0x7f0a001c;
         public static final int HelpMain=0x7f0a0022;
-        public static final int action_settings=0x7f0a0034;
+        public static final int action_settings=0x7f0a0033;
         public static final int alignBounds=0x7f0a0002;
         public static final int alignMargins=0x7f0a0003;
         public static final int bottom=0x7f0a0004;
@@ -309,7 +309,6 @@ containing a value of this type.
         public static final int in=0x7f0a002b;
         public static final int insecure_connect_scan=0x7f0a002f;
         public static final int left=0x7f0a000e;
-        public static final int menu_toggle_log=0x7f0a0033;
         public static final int message=0x7f0a001f;
         public static final int messageline=0x7f0a0020;
         public static final int new_devices=0x7f0a0019;

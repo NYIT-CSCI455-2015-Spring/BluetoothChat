@@ -63,16 +63,17 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
         try{
             if (savedInstanceState == null) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                BluetoothChatFragment btcfragment = new BluetoothChatFragment();
-                transaction.replace(R.id.sample_content_fragment, btcfragment);
+                BluetoothChatFragment btcFragment = new BluetoothChatFragment();
+                transaction.replace(R.id.sample_content_fragment, btcFragment);
                 transaction.commit();
             }
         }
         catch (NullPointerException e){
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            DummyFragment dfragment = new DummyFragment();
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-            transaction.replace(R.id.sample_content_fragment, dfragment);
+            DummyFragment dFragment = new DummyFragment();
+            //Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.d("MainActivity.onCreate()", e.getMessage());
+            transaction.replace(R.id.sample_content_fragment, dFragment);
             transaction.commit();
         }
     }
@@ -97,7 +98,7 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.menu_toggle_log:
+            //case R.id.menu_toggle_log:
                 //mLogShown = !mLogShown;
                 //ViewAnimator output = (ViewAnimator) findViewById(R.id.sample_output);
                 /*if (mLogShown) {
