@@ -78,4 +78,6 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">No Bluetooth adapter found!</string>
+    <string name="attachimage">Attachment</string>
+    <string name="camerabutton">Camera</string> //Camera button in Help Page
 </resources>

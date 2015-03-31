@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -6,7 +7,10 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.android.bluetoothchat.FeedbackActivity"
     android:orientation="vertical">
-
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +30,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/subject"
-        android:id="@+id/subject" />
+        android:id="@+id/subject"/>
+
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -46,6 +51,13 @@
         android:inputType="textMultiLine"
         android:lines="8"
         android:id="@+id/messageline" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/attachimage"
+        android:id="@+id/attach" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,4 +65,6 @@
         android:text="@string/sendbutton"
         android:id="@+id/sendto" />
 
-</LinearLayout>
+    </LinearLayout>
+
+    </ScrollView>

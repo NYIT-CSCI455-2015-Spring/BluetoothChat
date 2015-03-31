@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,12 +28,24 @@ public class HelpActivity extends Activity {
         final Button FeedBack = (Button) findViewById(R.id.feedback);
         Button  FAQs = (Button) findViewById(R.id.faqs);
 
+        //Camera Button
+        Button Camera = (Button) findViewById(R.id.camera);
+        Camera.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraintent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                startActivity(cameraintent);
+            }
+        });
+
+
+
        //Userguide Button
         UserGuide.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent userguideintent = new Intent(Intent.ACTION_VIEW, Uri.parse
-                        ("http://nyit-csci455-2015-spring.github.io/BluetoothChat"));
+                        ("http://nyit-csci455-2015-spring.github.io/BluetoothChat/"));
                 startActivity(userguideintent);
 
                 TextView welcomemessage = (TextView) findViewById(R.id.helppagemessage);
