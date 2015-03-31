@@ -60,20 +60,10 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try{
-            if (savedInstanceState == null) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                BluetoothChatFragment btcFragment = new BluetoothChatFragment();
-                transaction.replace(R.id.sample_content_fragment, btcFragment);
-                transaction.commit();
-            }
-        }
-        catch (NullPointerException e){
+        if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            DummyFragment dFragment = new DummyFragment();
-            //Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-            Log.d("MainActivity.onCreate()", e.getMessage());
-            transaction.replace(R.id.sample_content_fragment, dFragment);
+            BluetoothChatFragment btcFragment = new BluetoothChatFragment();
+            transaction.replace(R.id.sample_content_fragment, btcFragment);
             transaction.commit();
         }
     }
@@ -86,9 +76,9 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        //MenuItem logToggle = menu.findItem(R.id.menu_toggle_log);
         MenuItem settings = menu.findItem(R.id.settings).setIntent(new Intent(this, SettingsActivity.class));
         MenuItem help = menu.findItem(R.id.help).setIntent(new Intent(this, HelpActivity.class));
+        //MenuItem logToggle = menu.findItem(R.id.menu_toggle_log);
         /*logToggle.setVisible(findViewById(R.id.sample_output) instanceof ViewAnimator);
         logToggle.setTitle(mLogShown ? R.string.sample_hide_log : R.string.sample_show_log);*/
 

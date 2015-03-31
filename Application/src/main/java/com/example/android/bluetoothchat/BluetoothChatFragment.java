@@ -25,6 +25,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -108,7 +109,6 @@ public class BluetoothChatFragment extends Fragment {
         }
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -124,12 +124,11 @@ public class BluetoothChatFragment extends Fragment {
                 Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
                 startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
             }
-
         } catch (NullPointerException e) {
-            //Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             DummyFragment dFragment = new DummyFragment();
-            Log.d("MainActivity.onCreate()", "EXCEPTION: " + e.getMessage());
+            //Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.d("BTCFragment.onStart()", "EXCEPTION: " + e.getMessage());
             transaction.replace(R.id.sample_content_fragment, dFragment);
             transaction.commit();
         }
@@ -329,6 +328,7 @@ public class BluetoothChatFragment extends Fragment {
                         // construct a string from the valid bytes in the buffer
                         String readMessage = new String(readBuf, 0, msg.arg1);
                         mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
+
                         NotificationCompat.Builder mBuilder =
                                 new NotificationCompat.Builder(getActivity())
                                         .setSmallIcon(R.drawable.ic_launcher)
@@ -354,9 +354,10 @@ public class BluetoothChatFragment extends Fragment {
                         mBuilder.setContentIntent(resultPendingIntent);
                         //Vibration
                         mBuilder.setVibrate(new long[] { 1000, 1000,});
-
                         //LED
                         mBuilder.setLights(Color.BLUE, 3000, 3000);
+                        //Sound
+                        mBuilder.setSound(Uri.parse("android.resource://com.example.android/" + R.raw.notification));
                         NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
                         // mId allows you to update the notification later on.
                         int mId = 0;
