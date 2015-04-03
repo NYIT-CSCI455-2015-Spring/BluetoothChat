@@ -40,20 +40,12 @@ import com.example.android.common.logger.MessageOnlyLogFilter;
  * on other devices it's visibility is controlled by an item on the Action Bar.
  */
 
-//to be modified for Senior Project
-//another modification from another PC after checking out from GitHub in Android Studio
-    //one more test
-    //changes made by Asvin and Anvesh successfully pulled to Nick's PC!
 public class MainActivity extends SampleActivityBase implements DummyFragment.OnFragmentInteractionListener{
 
     public static final String TAG = "MainActivity";
-    /**
-     * Local Bluetooth adapter
-     */
-    private BluetoothAdapter mBluetoothAdapter = null;
-    
+
     // Whether the Log Fragment is currently shown
-    private boolean mLogShown;
+    //private boolean mLogShown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +58,19 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
             transaction.replace(R.id.sample_content_fragment, btcFragment);
             transaction.commit();
         }
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+//        Called after the activity has been stopped, just prior to it being started again.
+//        Always followed by onStart()
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // The activity has become visible (it is now "resumed").
     }
 
     @Override
@@ -110,20 +115,20 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
     @Override
     public void initializeLogging() {
         // Wraps Android's native log framework.
-        LogWrapper logWrapper = new LogWrapper();
+        //LogWrapper logWrapper = new LogWrapper();
         // Using Log, front-end to the logging chain, emulates android.util.log method signatures.
-        Log.setLogNode(logWrapper);
+        //Log.setLogNode(logWrapper);
 
         // Filter strips out everything except the message text.
-        MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
-        logWrapper.setNext(msgFilter);
+        //MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
+        //logWrapper.setNext(msgFilter);
 
         /*// On screen logging via a fragment with a TextView.
         LogFragment logFragment = (LogFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.log_fragment);
         msgFilter.setNext(logFragment.getLogView());*/
 
-        Log.i(TAG, "Ready");
+        //Log.i(TAG, "Ready");
     }
 
     @Override
