@@ -25,6 +25,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -356,6 +357,7 @@ public class BluetoothChatFragment extends Fragment {
                         //LED
                         mBuilder.setLights(Color.BLUE, 3000, 3000);
                         //Sound
+                        mBuilder.setSound(Uri.parse("android.resource://com.example.android/" + R.raw.notification));
                         NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
                         // mId allows you to update the notification later on.
                         int mId = 0;

@@ -32,6 +32,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
+        <ImageButton
+            android:id="@+id/button_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_photo" />
+
         <EditText
             android:id="@+id/edit_text_out"
             android:layout_width="wrap_content"
