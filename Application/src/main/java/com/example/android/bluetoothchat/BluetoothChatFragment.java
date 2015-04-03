@@ -328,7 +328,7 @@ public class BluetoothChatFragment extends Fragment {
                                     setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
                                     mConversationArrayAdapter.clear();
                                 } catch (IllegalStateException e) {
-
+                                    Log.d(TAG, e.getMessage());
                                 }
 
                                 break;
@@ -359,8 +359,14 @@ public class BluetoothChatFragment extends Fragment {
                                         .setContentTitle(mConnectedDeviceName)
                                         .setContentText(readMessage);
                         // Creates an explicit intent for an Activity in your app
-                        Intent resultIntent = new Intent(getActivity(), MainActivity.class);
-                        resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        try{
+                            Intent resultIntent = new Intent(getActivity(), MainActivity.class);
+                            resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                            mBuilder.setContentIntent(pendingIntent);
+                        } catch (NullPointerException e){
+                            Log.d(TAG, e.getMessage());
+                        }
 
 //                        // The stack builder object will contain an artificial back stack for the
 //                        // started Activity.
@@ -376,8 +382,6 @@ public class BluetoothChatFragment extends Fragment {
 //                                        0,
 //                                        PendingIntent.FLAG_UPDATE_CURRENT
 //                                );
-                        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        mBuilder.setContentIntent(pendingIntent);
                         //Vibration
                         mBuilder.setVibrate(new long[]{1000, 1000});
                         //Set boolean to have notification dismiss itself when user clicks on it
