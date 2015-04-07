@@ -79,5 +79,9 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">No Bluetooth adapter found!</string>
     <string name="attachimage">Attachment</string>
-    <string name="camerabutton">Camera</string> //Camera button in Help Page
+    <string name="camerabutton">Camera</string>
+    <string name="title_activity_contacts">ContactsActivity</string>
+    <string name="title_activity_update_contacts">UpdateContactsActivity</string>
+    <string name="contacts_page">contacts</string>
+    //Camera button in Help Page
 </resources>

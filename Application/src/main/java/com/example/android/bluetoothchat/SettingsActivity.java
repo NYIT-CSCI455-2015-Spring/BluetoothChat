@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 
 public class SettingsActivity extends Activity {
@@ -14,6 +15,23 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
+        OnButtonClickListener();
+
+    }
+
+    private void OnButtonClickListener() {
+
+        final Button Contacts = (Button) findViewById(R.id.button4);
+        //Feedback Button
+        Contacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent contactsintent = new Intent(SettingsActivity.this, ContactsActivity.class);
+                startActivity(contactsintent);
+
+            }
+        });
+
     }
 
 
