@@ -16,7 +16,6 @@
 
 package com.example.android.bluetoothchat;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -25,9 +24,9 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -50,6 +49,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,7 +67,114 @@ public class BluetoothChatFragment extends Fragment {
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
     private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
     private static final int REQUEST_ENABLE_BT = 3;
+    private static final int REQUEST_CAMERA = 4;
+    /**
+     * The Handler that gets information back from the BluetoothChatService
+     */
+    private final Handler mHandler;
 
+    {
+        //@SuppressLint("HandlerLeak") annotations are now allowed here apparently so I disabled inspection to get rid of the hideous yellow highlight
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                FragmentActivity activity = getActivity();
+                switch (msg.what) {
+                    case Constants.MESSAGE_STATE_CHANGE:
+                        switch (msg.arg1) {
+                            case BluetoothChatService.STATE_CONNECTED:
+                                try {
+                                    setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
+                                    mConversationArrayAdapter.clear();
+                                } catch (IllegalStateException e) {
+                                    Log.d(TAG, e.getMessage());
+                                }
+
+                                break;
+                            case BluetoothChatService.STATE_CONNECTING:
+                                setStatus(R.string.title_connecting);
+                                break;
+                            case BluetoothChatService.STATE_LISTEN:
+                            case BluetoothChatService.STATE_NONE:
+                                setStatus(R.string.title_not_connected);
+                                break;
+                        }
+                        break;
+                    case Constants.MESSAGE_WRITE:
+                        byte[] writeBuf = (byte[]) msg.obj;
+                        // construct a string from the buffer
+                        String writeMessage = new String(writeBuf);
+                        mConversationArrayAdapter.add("Me:  " + writeMessage);
+                        break;
+                    case Constants.MESSAGE_READ:
+                        //Read message and add to list adapter
+                        byte[] readBuf = (byte[]) msg.obj;
+                        // construct a string from the valid bytes in the buffer
+                        String readMessage = new String(readBuf, 0, msg.arg1);
+                        mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
+
+                        //Build notification
+                        NotificationCompat.Builder mBuilder =
+                                new NotificationCompat.Builder(getActivity())
+                                        .setSmallIcon(R.drawable.ic_launcher)
+                                        .setAutoCancel(true)
+                                        .setVibrate(new long[]{1000, 1000})
+                                        .setLights(Color.WHITE, 1000, 1000)
+                                        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                                        .setContentTitle(mConnectedDeviceName)
+                                        .setContentText(readMessage);
+
+                        try {
+                            // Creates an explicit intent for an Activity in your app
+                            Intent resultIntent = new Intent(getActivity(), MainActivity.class);
+                            resultIntent.putExtra("chatFragment", "btcFragment");
+                            resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+                            // The stack builder object will contain an artificial back stack for the started Activity.
+                            // This ensures that navigating backward from the Activity leads out of
+                            // your application to the Home screen.
+                            TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
+                            // Adds the back stack for the Intent (but not the Intent itself)
+                            stackBuilder.addParentStack(MainActivity.class);
+                            // Adds the Intent that starts the Activity to the top of the stack
+                            stackBuilder.addNextIntent(resultIntent);
+
+                            // Make this unique ID to make sure there is not generated just a brand new intent with new extra values:
+                            int requestID = (int) System.currentTimeMillis();
+
+                            // Pass the unique ID to the resultPendingIntent:
+                            PendingIntent resultPendingIntent = PendingIntent.getActivity(getActivity(), requestID, resultIntent, 0);
+                            mBuilder.setContentIntent(resultPendingIntent);
+                        } catch (NullPointerException e) {
+                            Log.d(TAG, e.getMessage());
+                        }
+
+                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                        // mId allows you to update the notification later on.
+                        int mId = 0;
+                        mNotificationManager.notify(mId + 1, mBuilder.build());
+
+                        //After notification we should write the message to a database to be viewed in chat history.
+                        break;
+                    case Constants.MESSAGE_DEVICE_NAME:
+                        // save the connected device's name
+                        mConnectedDeviceName = msg.getData().getString(Constants.DEVICE_NAME);
+                        if (null != activity) {
+                            Toast.makeText(activity, "Connected to "
+                                    + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case Constants.MESSAGE_TOAST:
+                        if (null != activity) {
+                            Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                }
+            }
+        };
+    }
     // Layout Views
     private ListView mConversationView;
     private EditText mOutEditText;
@@ -77,26 +184,38 @@ public class BluetoothChatFragment extends Fragment {
      * Name of the connected device
      */
     private String mConnectedDeviceName = null;
-
     /**
      * Array adapter for the conversation thread
      */
     private ArrayAdapter<String> mConversationArrayAdapter;
-
     /**
      * String buffer for outgoing messages
      */
     private StringBuffer mOutStringBuffer;
-
     /**
      * Local Bluetooth adapter
      */
     private BluetoothAdapter mBluetoothAdapter = null;
-
     /**
      * Member object for the chat services
      */
     private BluetoothChatService mChatService = null;
+    private Bitmap bitMap;
+    private ImageView thumbnail;
+    /**
+     * The action listener for the EditText widget, to listen for the return key
+     */
+    private TextView.OnEditorActionListener mWriteListener
+            = new TextView.OnEditorActionListener() {
+        public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+            // If the action is a key-up event on the return key, send the message
+            if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_UP) {
+                String message = view.getText().toString();
+                sendMessage(message);
+            }
+            return true;
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,8 +235,18 @@ public class BluetoothChatFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState == null) {
-            Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
-            startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
+            try {
+                if (mChatService == null) {
+                    Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
+                    startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
+                }
+            } catch (NullPointerException e) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                DummyFragment dFragment = new DummyFragment();
+                transaction.replace(R.id.sample_content_fragment, dFragment);
+                transaction.commit();
+                Log.d("BTCFragment.onStart()", "EXCEPTION: " + e.getMessage());
+            }
         }
     }
 
@@ -224,7 +353,7 @@ public class BluetoothChatFragment extends Fragment {
                 if (view != null) {
                     //Start camera activity
                     Intent camera = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                    startActivity(camera);
+                    startActivityForResult(camera, REQUEST_CAMERA);
                     //Put captured image into message field
                     //Message field needs to be converted to something that can handle images, not just text
                 }
@@ -275,21 +404,6 @@ public class BluetoothChatFragment extends Fragment {
     }
 
     /**
-     * The action listener for the EditText widget, to listen for the return key
-     */
-    private TextView.OnEditorActionListener mWriteListener
-            = new TextView.OnEditorActionListener() {
-        public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-            // If the action is a key-up event on the return key, send the message
-            if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_UP) {
-                String message = view.getText().toString();
-                sendMessage(message);
-            }
-            return true;
-        }
-    };
-
-    /**
      * Updates the status on the action bar.
      *
      * @param resId a string resource ID
@@ -324,114 +438,12 @@ public class BluetoothChatFragment extends Fragment {
     }
 
     /**
-     * The Handler that gets information back from the BluetoothChatService
+     * Handle result from started Activity
+     *
+     * @param requestCode Constant used to identify type of request
+     * @param resultCode  Constant used to identify result of request
+     * @param data        Intent returned by the activity
      */
-
-    private final Handler mHandler;
-
-    {
-        //@SuppressLint("HandlerLeak") annotations are now allowed here apparently so I disabled inspection to get rid of the hideous yellow highlight
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                FragmentActivity activity = getActivity();
-                switch (msg.what) {
-                    case Constants.MESSAGE_STATE_CHANGE:
-                        switch (msg.arg1) {
-                            case BluetoothChatService.STATE_CONNECTED:
-                                try {
-                                    setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
-                                    mConversationArrayAdapter.clear();
-                                } catch (IllegalStateException e) {
-                                    Log.d(TAG, e.getMessage());
-                                }
-
-                                break;
-                            case BluetoothChatService.STATE_CONNECTING:
-                                setStatus(R.string.title_connecting);
-                                break;
-                            case BluetoothChatService.STATE_LISTEN:
-                            case BluetoothChatService.STATE_NONE:
-                                setStatus(R.string.title_not_connected);
-                                break;
-                        }
-                        break;
-                    case Constants.MESSAGE_WRITE:
-                        byte[] writeBuf = (byte[]) msg.obj;
-                        // construct a string from the buffer
-                        String writeMessage = new String(writeBuf);
-                        mConversationArrayAdapter.add("Me:  " + writeMessage);
-                        break;
-                    case Constants.MESSAGE_READ:
-                        //Read message and add to list adapter
-                        byte[] readBuf = (byte[]) msg.obj;
-                        // construct a string from the valid bytes in the buffer
-                        String readMessage = new String(readBuf, 0, msg.arg1);
-                        mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
-
-                        //Build notification
-                        NotificationCompat.Builder mBuilder =
-                                new NotificationCompat.Builder(getActivity())
-                                        .setSmallIcon(R.drawable.ic_launcher)
-                                        .setAutoCancel(true)
-                                        .setVibrate(new long[]{1000, 1000})
-                                        .setLights(Color.WHITE, 1000, 1000)
-                                        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                                        .setContentTitle(mConnectedDeviceName)
-                                        .setContentText(readMessage);
-
-                        try {
-                            // Creates an explicit intent for an Activity in your app
-                            Intent resultIntent = new Intent(getActivity(), MainActivity.class);
-                            resultIntent.putExtra("chatFragment", "btcFragment");
-                            resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-                            // The stack builder object will contain an artificial back stack for the started Activity.
-                            // This ensures that navigating backward from the Activity leads out of
-                            // your application to the Home screen.
-                            TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
-                            // Adds the back stack for the Intent (but not the Intent itself)
-                            stackBuilder.addParentStack(MainActivity.class);
-                            // Adds the Intent that starts the Activity to the top of the stack
-                            stackBuilder.addNextIntent(resultIntent);
-
-                            // Make this unique ID to make sure there is not generated just a brand new intent with new extra values:
-                            int requestID = (int) System.currentTimeMillis();
-
-                            // Pass the unique ID to the resultPendingIntent:
-                            PendingIntent resultPendingIntent = PendingIntent.getActivity(getActivity(), requestID, resultIntent, 0);
-                            mBuilder.setContentIntent(resultPendingIntent);
-                        } catch (NullPointerException e) {
-                            Log.d(TAG, e.getMessage());
-                        }
-
-                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-                        // mId allows you to update the notification later on.
-                        int mId = 0;
-                        mNotificationManager.notify(mId + 1, mBuilder.build());
-
-                        //After notification we should write the message to a database to be viewed in chat history.
-                        break;
-                    case Constants.MESSAGE_DEVICE_NAME:
-                        // save the connected device's name
-                        mConnectedDeviceName = msg.getData().getString(Constants.DEVICE_NAME);
-                        if (null != activity) {
-                            Toast.makeText(activity, "Connected to "
-                                    + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    case Constants.MESSAGE_TOAST:
-                        if (null != activity) {
-                            Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                }
-            }
-        };
-    }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_CONNECT_DEVICE_SECURE:
@@ -458,11 +470,20 @@ public class BluetoothChatFragment extends Fragment {
                             Toast.LENGTH_SHORT).show();
                     getActivity().finish();
                 }
+            case REQUEST_CAMERA:
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    Bundle extras = data.getExtras();
+
+                    // get bitmap
+                    bitMap = (Bitmap) extras.get("data");
+                    //thumbnail.setImageBitmap(bitMap);
+                    //Need to find a place to put the image before being sent, then how to send it?
+                }
         }
     }
 
     /**
-     * Establish connection with other divice
+     * Establish connection with other device
      *
      * @param data   An {@link Intent} with {@link DeviceListActivity#EXTRA_DEVICE_ADDRESS} extra.
      * @param secure Socket Security type - Secure (true) , Insecure (false)
