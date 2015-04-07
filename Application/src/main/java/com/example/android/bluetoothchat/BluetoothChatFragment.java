@@ -68,6 +68,7 @@ public class BluetoothChatFragment extends Fragment {
     private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
     private static final int REQUEST_ENABLE_BT = 3;
     private static final int REQUEST_CAMERA = 4;
+
     /**
      * The Handler that gets information back from the BluetoothChatService
      */
@@ -146,14 +147,13 @@ public class BluetoothChatFragment extends Fragment {
                             // Pass the unique ID to the resultPendingIntent:
                             PendingIntent resultPendingIntent = PendingIntent.getActivity(getActivity(), requestID, resultIntent, 0);
                             mBuilder.setContentIntent(resultPendingIntent);
+                            NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                            // mId allows you to update the notification later on.
+                            int mId = 0;
+                            mNotificationManager.notify(mId + 1, mBuilder.build());
                         } catch (NullPointerException e) {
                             Log.d(TAG, e.getMessage());
                         }
-
-                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-                        // mId allows you to update the notification later on.
-                        int mId = 0;
-                        mNotificationManager.notify(mId + 1, mBuilder.build());
 
                         //After notification we should write the message to a database to be viewed in chat history.
                         break;
@@ -175,6 +175,7 @@ public class BluetoothChatFragment extends Fragment {
             }
         };
     }
+
     // Layout Views
     private ListView mConversationView;
     private EditText mOutEditText;
@@ -200,8 +201,10 @@ public class BluetoothChatFragment extends Fragment {
      * Member object for the chat services
      */
     private BluetoothChatService mChatService = null;
+
     private Bitmap bitMap;
     private ImageView thumbnail;
+
     /**
      * The action listener for the EditText widget, to listen for the return key
      */
@@ -234,19 +237,14 @@ public class BluetoothChatFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState == null) {
-            try {
-                if (mChatService == null) {
-                    Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
-                    startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
-                }
-            } catch (NullPointerException e) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                DummyFragment dFragment = new DummyFragment();
-                transaction.replace(R.id.sample_content_fragment, dFragment);
-                transaction.commit();
-                Log.d("BTCFragment.onStart()", "EXCEPTION: " + e.getMessage());
-            }
+        setHasOptionsMenu(true);
+
+        // Get local Bluetooth adapter
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        // If the adapter is null, then Bluetooth is not supported
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(getActivity(), "Bluetooth is not available", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -269,8 +267,8 @@ public class BluetoothChatFragment extends Fragment {
                 // Otherwise, setup the chat session and start the DeviceListActivity
             } else if (mChatService == null) {
                 setupChat();
-                //Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
-                //startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
+                Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
+                startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
             }
         } catch (NullPointerException e) {
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

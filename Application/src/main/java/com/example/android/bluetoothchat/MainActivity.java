@@ -25,25 +25,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.android.common.logger.Log;
-
-/**
- * A simple launcher activity containing a summary sample description, sample log and a custom
- * {@link android.support.v4.app.Fragment} which can display a view.
- * <p/>
- * For devices with display with a width of 720dp or greater, the sample log is always visible,
- * on other devices it's visibility is controlled by an item on the Action Bar.
- */
 
 public class MainActivity extends FragmentActivity implements DummyFragment.OnFragmentInteractionListener {
 
     public static final String TAG = "MainActivity";
     Fragment fragment;
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-    // Whether the Log Fragment is currently shown
-    //private boolean mLogShown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +44,8 @@ public class MainActivity extends FragmentActivity implements DummyFragment.OnFr
         boolean isEmulator = Build.FINGERPRINT.contains("generic");
 
         if (isEmulator) {
+            Log.d(TAG, "It's an emulator! Starting DummyFragment.");
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_SHORT).show();
             fragment = new DummyFragment();
             transaction.replace(R.id.sample_content_fragment, fragment);
             transaction.commit();
@@ -63,7 +55,6 @@ public class MainActivity extends FragmentActivity implements DummyFragment.OnFr
             transaction.replace(R.id.sample_content_fragment, fragment);
             transaction.commit();
         } else if (savedInstanceState.getString("chatFragment") != null) {
-            //Restore fragments instance
             Log.d(TAG, "Saved instance found, restoring fragment.");
             fragment = getSupportFragmentManager().getFragment(savedInstanceState, "btcFragment");
             transaction.replace(R.id.sample_content_fragment, fragment);
@@ -109,26 +100,12 @@ public class MainActivity extends FragmentActivity implements DummyFragment.OnFr
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem settings = menu.findItem(R.id.settings).setIntent(new Intent(this, SettingsActivity.class));
         MenuItem help = menu.findItem(R.id.help).setIntent(new Intent(this, HelpActivity.class));
-        //MenuItem logToggle = menu.findItem(R.id.menu_toggle_log);
-        /*logToggle.setVisible(findViewById(R.id.sample_output) instanceof ViewAnimator);
-        logToggle.setTitle(mLogShown ? R.string.sample_hide_log : R.string.sample_show_log);*/
-
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //case R.id.menu_toggle_log:
-            //mLogShown = !mLogShown;
-            //ViewAnimator output = (ViewAnimator) findViewById(R.id.sample_output);
-                /*if (mLogShown) {
-                    output.setDisplayedChild(1);
-                } else {
-                    output.setDisplayedChild(0);
-                }
-                supportInvalidateOptionsMenu();*/
-            //return true;
             case R.id.help:
                 startActivity(item.getIntent());
             case R.id.settings:
@@ -137,27 +114,6 @@ public class MainActivity extends FragmentActivity implements DummyFragment.OnFr
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Create a chain of targets that will receive log data
-     */
-    //@Override
-    //public void initializeLogging() {
-    // Wraps Android's native log framework.
-    //LogWrapper logWrapper = new LogWrapper();
-    // Using Log, front-end to the logging chain, emulates android.util.log method signatures.
-    //Log.setLogNode(logWrapper);
-
-    // Filter strips out everything except the message text.
-    //MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
-    //logWrapper.setNext(msgFilter);
-
-        /*// On screen logging via a fragment with a TextView.
-        LogFragment logFragment = (LogFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.log_fragment);
-        msgFilter.setNext(logFragment.getLogView());*/
-
-    //Log.i(TAG, "Ready");
-    //}
     @Override
     public void onFragmentInteraction(Uri uri) {
     }
