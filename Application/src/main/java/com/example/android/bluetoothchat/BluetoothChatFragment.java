@@ -26,6 +26,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -107,9 +108,23 @@ public class BluetoothChatFragment extends Fragment {
 
         // If the adapter is null, then Bluetooth is not supported
         if (mBluetoothAdapter == null) {
-            FragmentActivity activity = getActivity();
-            Toast.makeText(activity, "Bluetooth is not available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Bluetooth is not available", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState == null) {
+            Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
+            startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //Save fragments state
     }
 
     @Override
@@ -125,15 +140,15 @@ public class BluetoothChatFragment extends Fragment {
                 // Otherwise, setup the chat session and start the DeviceListActivity
             } else if (mChatService == null) {
                 setupChat();
-                Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
-                startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
+                //Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
+                //startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
             }
         } catch (NullPointerException e) {
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             DummyFragment dFragment = new DummyFragment();
-            Log.d("BTCFragment.onStart()", "EXCEPTION: " + e.getMessage());
             transaction.replace(R.id.sample_content_fragment, dFragment);
             transaction.commit();
+            Log.d("BTCFragment.onStart()", "EXCEPTION: " + e.getMessage());
         }
 
     }
@@ -203,10 +218,10 @@ public class BluetoothChatFragment extends Fragment {
             }
         });
 
-        mCameraButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        mCameraButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 View view = getView();
-                if(view != null){
+                if (view != null) {
                     //Start camera activity
                     Intent camera = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
                     startActivity(camera);
@@ -348,48 +363,49 @@ public class BluetoothChatFragment extends Fragment {
                         mConversationArrayAdapter.add("Me:  " + writeMessage);
                         break;
                     case Constants.MESSAGE_READ:
+                        //Read message and add to list adapter
                         byte[] readBuf = (byte[]) msg.obj;
                         // construct a string from the valid bytes in the buffer
                         String readMessage = new String(readBuf, 0, msg.arg1);
                         mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
 
+                        //Build notification
                         NotificationCompat.Builder mBuilder =
                                 new NotificationCompat.Builder(getActivity())
                                         .setSmallIcon(R.drawable.ic_launcher)
+                                        .setAutoCancel(true)
+                                        .setVibrate(new long[]{1000, 1000})
+                                        .setLights(Color.WHITE, 1000, 1000)
+                                        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                                         .setContentTitle(mConnectedDeviceName)
                                         .setContentText(readMessage);
-                        // Creates an explicit intent for an Activity in your app
-                        try{
+
+                        try {
+                            // Creates an explicit intent for an Activity in your app
                             Intent resultIntent = new Intent(getActivity(), MainActivity.class);
+                            resultIntent.putExtra("chatFragment", "btcFragment");
                             resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                            mBuilder.setContentIntent(pendingIntent);
-                        } catch (NullPointerException e){
+                            resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+                            // The stack builder object will contain an artificial back stack for the started Activity.
+                            // This ensures that navigating backward from the Activity leads out of
+                            // your application to the Home screen.
+                            TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
+                            // Adds the back stack for the Intent (but not the Intent itself)
+                            stackBuilder.addParentStack(MainActivity.class);
+                            // Adds the Intent that starts the Activity to the top of the stack
+                            stackBuilder.addNextIntent(resultIntent);
+
+                            // Make this unique ID to make sure there is not generated just a brand new intent with new extra values:
+                            int requestID = (int) System.currentTimeMillis();
+
+                            // Pass the unique ID to the resultPendingIntent:
+                            PendingIntent resultPendingIntent = PendingIntent.getActivity(getActivity(), requestID, resultIntent, 0);
+                            mBuilder.setContentIntent(resultPendingIntent);
+                        } catch (NullPointerException e) {
                             Log.d(TAG, e.getMessage());
                         }
 
-//                        // The stack builder object will contain an artificial back stack for the
-//                        // started Activity.
-//                        // This ensures that navigating backward from the Activity leads out of
-//                        // your application to the Home screen.
-//                        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
-//                        // Adds the back stack for the Intent (but not the Intent itself)
-//                        stackBuilder.addParentStack(MainActivity.class);
-//                        // Adds the Intent that starts the Activity to the top of the stack
-//                        stackBuilder.addNextIntent(resultIntent);
-//                        PendingIntent resultPendingIntent =
-//                                stackBuilder.getPendingIntent(
-//                                        0,
-//                                        PendingIntent.FLAG_UPDATE_CURRENT
-//                                );
-                        //Vibration
-                        mBuilder.setVibrate(new long[]{1000, 1000});
-                        //Set boolean to have notification dismiss itself when user clicks on it
-                        mBuilder.setAutoCancel(true);
-                        //LED
-                        //mBuilder.setLights(Color.BLUE, 3000, 3000);
-                        //Sound
-                        //mBuilder.setSound(Uri.parse("android.resource://com.example.android/" + R.raw.notification));
                         NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
                         // mId allows you to update the notification later on.
                         int mId = 0;

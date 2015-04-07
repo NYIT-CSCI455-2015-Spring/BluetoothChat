@@ -39,7 +39,7 @@ public class SettingsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void openCustomizeAppearancePage(View view){
+    public void openCustomizeAppearancePage(View view) {
         Intent intent = new Intent(this, ThemeActivity.class);
         startActivity(intent);
     }

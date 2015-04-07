@@ -18,11 +18,11 @@ import android.widget.Toast;
 public class FeedbackActivity extends Activity implements OnClickListener {
 
     Button Send, Attachment;//Send Button
-    EditText SendTo,Subject,Message;//Edit Text
+    EditText SendTo, Subject, Message;//Edit Text
     Uri URI = null;
     private static final int PICK_FROM_GALLERY = 101;
     int Image;
-    String sendto, subject,message, attachment;
+    String sendto, subject, message, attachment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class FeedbackActivity extends Activity implements OnClickListener {
         Send = (Button) findViewById(R.id.sendto);
         SendTo = (EditText) findViewById(R.id.EditSendTo);
         Subject = (EditText) findViewById(R.id.subjectline);
-        Message =  (EditText) findViewById(R.id.messageline);
+        Message = (EditText) findViewById(R.id.messageline);
         Attachment = (Button) findViewById(R.id.attach);
         Send.setOnClickListener(this);
         Attachment.setOnClickListener(this);
@@ -43,7 +43,7 @@ public class FeedbackActivity extends Activity implements OnClickListener {
     protected void onActivityResult(int request, int response, Intent result) {
 
 
-        if (request == PICK_FROM_GALLERY && response == RESULT_OK){
+        if (request == PICK_FROM_GALLERY && response == RESULT_OK) {
             Uri pickedimage = result.getData();
             String[] picturepath = {MediaStore.Images.Media.DATA};
             Cursor cursor = getContentResolver().query(pickedimage, picturepath, null, null, null);
@@ -57,6 +57,7 @@ public class FeedbackActivity extends Activity implements OnClickListener {
         }
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -82,34 +83,34 @@ public class FeedbackActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
 
-             if (v == Attachment){
-                 viewGallery();
-             }
-            if (v == Send){
-                try{
-                    sendto = SendTo.getText().toString();
-                    subject = Subject.getText().toString();
-                    message = Message.getText().toString();
-                    Intent EMAIL = new Intent(Intent.ACTION_SEND);
-                    EMAIL.setType("plain/text");
-                    EMAIL.putExtra(Intent.EXTRA_EMAIL, new String[]{ sendto});
-                    EMAIL.putExtra(Intent.EXTRA_SUBJECT, subject);
-                    if (URI != null) {
-                        EMAIL.putExtra(Intent.EXTRA_STREAM, URI);
-                    }
-                    EMAIL.putExtra(Intent.EXTRA_TEXT, message);
-                    this.startActivity(Intent.createChooser(EMAIL,
-                            " Almost Done, please Choose..."));
+        if (v == Attachment) {
+            viewGallery();
+        }
+        if (v == Send) {
+            try {
+                sendto = SendTo.getText().toString();
+                subject = Subject.getText().toString();
+                message = Message.getText().toString();
+                Intent EMAIL = new Intent(Intent.ACTION_SEND);
+                EMAIL.setType("plain/text");
+                EMAIL.putExtra(Intent.EXTRA_EMAIL, new String[]{sendto});
+                EMAIL.putExtra(Intent.EXTRA_SUBJECT, subject);
+                if (URI != null) {
+                    EMAIL.putExtra(Intent.EXTRA_STREAM, URI);
                 }
-            catch (Throwable t){
+                EMAIL.putExtra(Intent.EXTRA_TEXT, message);
+                this.startActivity(Intent.createChooser(EMAIL,
+                        " Almost Done, please Choose..."));
+            } catch (Throwable t) {
 
                 Toast.makeText(this,
                         "Your request failed! Please try again: " + t.toString(),
                         Toast.LENGTH_LONG).show();
             }
-            }
+        }
 
     }
+
     private void viewGallery() { //opens the gallery
 
         Intent attachmentintent = new Intent();

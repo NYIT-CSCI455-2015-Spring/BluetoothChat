@@ -20,6 +20,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,14 +36,18 @@ import com.example.android.common.logger.MessageOnlyLogFilter;
 /**
  * A simple launcher activity containing a summary sample description, sample log and a custom
  * {@link android.support.v4.app.Fragment} which can display a view.
- * <p>
+ * <p/>
  * For devices with display with a width of 720dp or greater, the sample log is always visible,
  * on other devices it's visibility is controlled by an item on the Action Bar.
  */
 
-public class MainActivity extends SampleActivityBase implements DummyFragment.OnFragmentInteractionListener{
+public class MainActivity extends SampleActivityBase implements DummyFragment.OnFragmentInteractionListener {
 
     public static final String TAG = "MainActivity";
+    Fragment btcFragment = new BluetoothChatFragment();
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
+
 
     // Whether the Log Fragment is currently shown
     //private boolean mLogShown;
@@ -52,12 +57,33 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, Utils.getTimeStamp() + " Main Activity created.");
+
         if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            BluetoothChatFragment btcFragment = new BluetoothChatFragment();
+            Log.d(TAG, "No saved instance, starting new fragment.");
+            btcFragment = new BluetoothChatFragment();
+            transaction.replace(R.id.sample_content_fragment, btcFragment);
+            transaction.commit();
+        } else if (savedInstanceState.getString("chatFragment") != null) {
+            //Restore fragments instance
+            Log.d(TAG, "Saved instance found, restoring fragment.");
+            btcFragment = getSupportFragmentManager().getFragment(savedInstanceState, "btcFragment");
             transaction.replace(R.id.sample_content_fragment, btcFragment);
             transaction.commit();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //Save bluetooth connection information here?
+        getSupportFragmentManager().putFragment(outState, "btcFragment", btcFragment);
+        Log.d(TAG, "onSaveInstanceState is being called" + Utils.getTimeStamp());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -92,17 +118,17 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             //case R.id.menu_toggle_log:
-                //mLogShown = !mLogShown;
-                //ViewAnimator output = (ViewAnimator) findViewById(R.id.sample_output);
+            //mLogShown = !mLogShown;
+            //ViewAnimator output = (ViewAnimator) findViewById(R.id.sample_output);
                 /*if (mLogShown) {
                     output.setDisplayedChild(1);
                 } else {
                     output.setDisplayedChild(0);
                 }
                 supportInvalidateOptionsMenu();*/
-                //return true;
+            //return true;
             case R.id.help:
                 startActivity(item.getIntent());
             case R.id.settings:
@@ -111,7 +137,9 @@ public class MainActivity extends SampleActivityBase implements DummyFragment.On
         return super.onOptionsItemSelected(item);
     }
 
-    /** Create a chain of targets that will receive log data */
+    /**
+     * Create a chain of targets that will receive log data
+     */
     @Override
     public void initializeLogging() {
         // Wraps Android's native log framework.

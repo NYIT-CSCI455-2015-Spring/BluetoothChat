@@ -37,9 +37,9 @@ public class ThemeActivity extends Activity implements OnClickListener {
     }
 
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
 
-        switch(v.getId()){
+        switch (v.getId()) {
 
             case R.id.button1:
                 Utils.changeToTheme(this, Utils.THEME_DEFAULT);

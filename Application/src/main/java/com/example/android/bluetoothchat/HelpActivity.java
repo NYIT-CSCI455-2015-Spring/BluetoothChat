@@ -20,13 +20,13 @@ public class HelpActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
         OnButtonClickListener();
-        
+
     }
 
     private void OnButtonClickListener() {
         Button UserGuide = (Button) findViewById(R.id.userguide);
         final Button FeedBack = (Button) findViewById(R.id.feedback);
-        Button  FAQs = (Button) findViewById(R.id.faqs);
+        Button FAQs = (Button) findViewById(R.id.faqs);
 
         //Camera Button
         Button Camera = (Button) findViewById(R.id.camera);
@@ -39,8 +39,7 @@ public class HelpActivity extends Activity {
         });
 
 
-
-       //Userguide Button
+        //Userguide Button
         UserGuide.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,8 +83,8 @@ public class HelpActivity extends Activity {
         //Asks user if they need more time if they hold on the buttonf or more than one second
 
         UserGuide.setOnLongClickListener(
-                new Button.OnLongClickListener(){
-                    public boolean onLongClick(View v){
+                new Button.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
                         TextView userguidemessage = (TextView) findViewById(R.id.helppagemessage);
                         return true;
 
@@ -95,8 +94,8 @@ public class HelpActivity extends Activity {
         );
         //Asks user if they need more time if they hold on the buttonf or more than one second
         FeedBack.setOnLongClickListener(
-                new Button.OnLongClickListener(){
-                    public boolean onLongClick(View v){
+                new Button.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
                         TextView feedbackmessage = (TextView) findViewById(R.id.helppagemessage);
                         return true;
 
@@ -106,8 +105,8 @@ public class HelpActivity extends Activity {
         );
         //Asks user if they need more time if they hold on the buttonf or more than one second
         FAQs.setOnLongClickListener(
-                new Button.OnLongClickListener(){
-                    public boolean onLongClick(View v){
+                new Button.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
                         TextView faqsmessage = (TextView) findViewById(R.id.helppagemessage);
                         return true;
 
