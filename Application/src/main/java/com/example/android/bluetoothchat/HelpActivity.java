@@ -28,17 +28,6 @@ public class HelpActivity extends Activity {
         final Button FeedBack = (Button) findViewById(R.id.feedback);
         Button FAQs = (Button) findViewById(R.id.faqs);
 
-        //Camera Button
-        Button Camera = (Button) findViewById(R.id.camera);
-        Camera.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cameraintent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                startActivity(cameraintent);
-            }
-        });
-
-
         //Userguide Button
         UserGuide.setOnClickListener(new OnClickListener() {
             @Override
