@@ -46,7 +46,7 @@
     <string name="userguide_button">User Guide</string>
     <string name="feedback_button">Feedback</string>
     <string name="faqs_button">FAQs</string>
-    <string name="welcome_message">Welcome to our Help Page</string>
+    <string name="welcome_message">Welcome the Help Page</string>
     <string name="title_activity_feedback">FeedbackActivity</string>
     <string name="to">To:</string>
     <string name="sendto">blchatadmin@gmail.com</string>
