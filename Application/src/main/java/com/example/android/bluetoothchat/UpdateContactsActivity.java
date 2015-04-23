@@ -70,9 +70,9 @@ public class UpdateContactsActivity extends Activity {
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
-                // min lenth 10 and max lenth 12 (2 extra for - as per phone
+                // min lenth 1 and max lenth 14 (2 extra for - as per phone
                 // matcher format)
-                Is_Valid_Sign_Number_Validation(12, 12, add_mobile);
+                Is_Valid_Sign_Number_Validation(1, 14, add_mobile);
             }
         });
         add_mobile
@@ -227,7 +227,6 @@ public class UpdateContactsActivity extends Activity {
     public void Is_Valid_Sign_Number_Validation(int MinLen, int MaxLen,
                                                 EditText edt) throws NumberFormatException {
         if (edt.getText().toString().length() <= 0) {
-            edt.setError("Number Only");
             valid_mob_number = null;
         } else if (edt.getText().toString().length() < MinLen) {
             edt.setError("Minimum length " + MinLen);
@@ -248,9 +247,6 @@ public class UpdateContactsActivity extends Activity {
         if (edt.getText().toString() == null) {
             edt.setError("Invalid Email Address");
             valid_email = null;
-        } else if (isEmailValid(edt.getText().toString()) == false) {
-            edt.setError("Invalid Email Address");
-            valid_email = null;
         } else {
             valid_email = edt.getText().toString();
         }
@@ -262,15 +258,12 @@ public class UpdateContactsActivity extends Activity {
 
     public void Is_Valid_Person_Name(EditText edt) throws NumberFormatException {
         if (edt.getText().toString().length() <= 0) {
-            edt.setError("Accept Alphabets Only.");
             valid_name = null;
         } else if (!edt.getText().toString().matches("[a-zA-Z ]+")) {
-            edt.setError("Accept Alphabets Only.");
             valid_name = null;
         } else {
             valid_name = edt.getText().toString();
         }
-
     }
 
     public void Show_Toast(String msg) {

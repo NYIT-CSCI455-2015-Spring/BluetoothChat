@@ -32,7 +32,7 @@
         android:ems="10"
         android:hint="Mobile Number"
         android:inputType="phone"
-        android:maxLength="12" />
+        android:maxLength="14" />
 
     <EditText
         android:id="@+id/add_email"
