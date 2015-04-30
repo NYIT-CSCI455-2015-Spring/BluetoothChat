@@ -49,7 +49,7 @@
     <string name="welcome_message">Welcome to the Help Page</string>
     <string name="title_activity_feedback">FeedbackActivity</string>
     <string name="to">To:</string>
-    <string name="sendto">blchatadmin@gmail.com</string>
+    <string name="sendto">blchatapp@gmail.com</string>
     <string name="subject">Subject</string>
     <string name="message">Message:</string>
     <string name="sendbutton">Send</string>
