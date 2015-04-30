@@ -108,10 +108,14 @@ public class MainActivity extends FragmentActivity implements DummyFragment.OnFr
         switch (item.getItemId()) {
             case R.id.help:
                 startActivity(item.getIntent());
+                break;
             case R.id.settings:
                 startActivity(item.getIntent());
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override

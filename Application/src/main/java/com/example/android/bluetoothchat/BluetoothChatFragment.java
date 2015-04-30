@@ -315,7 +315,7 @@ public class BluetoothChatFragment extends Fragment {
         mConversationView = (ListView) view.findViewById(R.id.in);
         mOutEditText = (EditText) view.findViewById(R.id.edit_text_out);
         mSendButton = (Button) view.findViewById(R.id.button_send);
-        mCameraButton = (ImageButton) view.findViewById(R.id.button_camera);
+        //mCameraButton = (ImageButton) view.findViewById(R.id.button_camera);
     }
 
     /**
@@ -345,7 +345,7 @@ public class BluetoothChatFragment extends Fragment {
             }
         });
 
-        mCameraButton.setOnClickListener(new View.OnClickListener() {
+        /*mCameraButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 View view = getView();
                 if (view != null) {
@@ -356,7 +356,7 @@ public class BluetoothChatFragment extends Fragment {
                     //Message field needs to be converted to something that can handle images, not just text
                 }
             }
-        });
+        });*/
 
         // Initialize the BluetoothChatService to perform bluetooth connections
         mChatService = new BluetoothChatService(getActivity(), mHandler);

@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <!--<Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/customize_appearance"
@@ -24,7 +24,7 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp"
-        android:onClick="openCustomizeAppearancePage"/>
+        android:onClick="openCustomizeAppearancePage"/>-->
 
     <Button
         android:layout_width="wrap_content"
