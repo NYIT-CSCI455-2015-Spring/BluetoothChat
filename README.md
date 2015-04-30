@@ -43,6 +43,12 @@ https://github.com/googlesamples/android-BluetoothChat
 Patches are encouraged, and may be submitted by forking this project and
 submitting a pull request through GitHub. Please see CONTRIBUTING.md for more details.
 
+Coming Soon
+------------
+- Access camera and share pictures/videos
+- Save chat history
+- Chat with more than one person (Group chat)
+
 License
 -------
 
