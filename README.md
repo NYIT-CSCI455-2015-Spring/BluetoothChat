@@ -1,32 +1,6 @@
 Android BluetoothChat Sample
 ===================================
-
-This sample shows how to implement two-way text chat over Bluetooth between two Android devices, using
-all the fundamental Bluetooth API capabilities.
-
-Introduction
-------------
-
-This sample should be run on two Android devices at the same time, to establish a two-way chat over
-Bluetooth between the devices. Select "Made discoverable" in overflow menu on one device and click
-on the Bluetooth icon on the other one, to find the device and establish the connection.
-
-The sample demonstrates the following, using the [Bluetooth API][1]:
-
-1. [Setting up][2] Bluetooth
-2. [Scanning][3] for other Bluetooth devices
-3. [Querying][4] the local Bluetooth adapter for paired Bluetooth devices
-4. [Establishing RFCOMM][5] channels/sockets
-5. [Connecting][6] to a remote device
-6. [Transfering][7] data over Bluetooth
-
-[1]: http://developer.android.com/guide/topics/connectivity/bluetooth.html
-[2]: http://developer.android.com/guide/topics/connectivity/bluetooth.html#Permissions
-[3]: http://developer.android.com/guide/topics/connectivity/bluetooth.html#FindingDevices
-[4]: http://developer.android.com/guide/topics/connectivity/bluetooth.html#QueryingPairedDevices
-[5]: http://developer.android.com/guide/topics/connectivity/bluetooth.html#ConnectingDevices
-[6]: http://developer.android.com/guide/topics/connectivity/bluetooth.html#ConnectingAsAClient
-[7]: http://developer.android.com/guide/topics/connectivity/bluetooth.html#ManagingAConnection
+ This app 
 
 Pre-requisites
 --------------
@@ -35,19 +9,30 @@ Pre-requisites
 - Android Build Tools v21.1.1
 - Android Support Repository
 
-Screenshots
--------------
-
-<img src="screenshots/1-launch.png" height="400" alt="Screenshot"/> <img src="screenshots/2-devices.png" height="400" alt="Screenshot"/> <img src="screenshots/3-chat.png" height="400" alt="Screenshot"/> 
-
-Getting Started
----------------
-
-This sample uses the Gradle build system. To build this project, use the
-"gradlew build" command or use "Import Project" in Android Studio.
-
-Support
+FAQs
 -------
+
+What is bluetooth?
+	- Bluetooth is a Personal Area Network (PAN) technology which uses UHF radio waves in the ISM band, from 2.4 GHz to 2.485 GHz. It is currently managed by the Bluetooth Special Interest Group, although originally standardized by IEEE in its 802.15.1 standard. 
+
+What devices are supported?
+	- This app currently supports all android devices.
+
+What is the bluetooth chat range?
+	- The range depends on the device. Usually, it works up to 50 feet. 
+	
+What situations can bluetooth chat be used?
+	- In a situation where there is no WiFi connectivity, two users can connect via bluetooth and start chatting with each other. For example, in a library with no wireless LAN connectivity, two people sitting in different areas can chat with each other using this app. 
+
+Can this app work on a tablet? Can a tablet chat with a phone?
+	- Yes, this app works on a tablet. It also works if one of the devices used is a tablet and the other is a phone. 
+
+Can the user be notified of new messages while not using the app?
+	- Yes. The app notifies the user by vibrating and flashing an LED light.
+
+ What if my bluetooth is not turned on?
+	- The app will prompt the user to turn it on and will list all of the available devices within range. 
+	
 
 - Google+ Community: https://plus.google.com/communities/105153134372062985968
 - Stack Overflow: http://stackoverflow.com/questions/tagged/android
